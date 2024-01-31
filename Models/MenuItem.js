@@ -1,3 +1,4 @@
+//mongoose for Establish Db connection 
 const mongoose=require('mongoose')
 
 const menuItemsSchema =  new mongoose.Schema({

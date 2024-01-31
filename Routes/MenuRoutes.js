@@ -4,6 +4,7 @@ const MenuItemNik = require('./../Models/MenuItem')
 
 
 
+//save MenuItem
 router.post("/savemit", async (req, res) => {
         try {
 
@@ -40,18 +41,19 @@ router.get("/getAll", async (req, res) => {
 
 });
 
+//Get menu Item by it Taste 
 router.get("/:taste", async (req, res) => {
 
         try {
 
-                const taste =req.params.taste;
-                if(taste=="sweet" || taste=="sour" || taste=="spicy"){
-                const response = await MenuItemNik.find({taste:taste});
-                console.log("Response get ✅✅");
-                res.status(200).json(response);
+                const taste = req.params.taste;
+                if (taste == "sweet" || taste == "sour" || taste == "spicy") {
+                        const response = await MenuItemNik.find({ taste: taste });
+                        console.log("Response get ✅✅");
+                        res.status(200).json(response);
                 }
-                else{
-                        res.status(404).json({error:"Invalid Taste "});
+                else {
+                        res.status(404).json({ error: "Invalid Taste " });
                 }
         } catch (err) {
 
@@ -62,4 +64,4 @@ router.get("/:taste", async (req, res) => {
 
 });
 
-module.exports=router;
+module.exports = router;

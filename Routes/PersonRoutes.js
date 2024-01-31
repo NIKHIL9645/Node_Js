@@ -5,7 +5,7 @@ const Person = require('./../Models/person')
 
 
 //save  persons  the data to db 
-router.post('/', async(req, res) => {
+router.post('/', async (req, res) => {
 
         try {
                 const data = req.body;
@@ -15,7 +15,7 @@ router.post('/', async(req, res) => {
                 res.status(200).json(response);
         } catch (err) {
                 console.log(err);
-                res.status(500).json({ error: 'internal server error '});
+                res.status(500).json({ error: 'internal server error ' });
         }
 });
 
@@ -27,75 +27,77 @@ router.get("/", async (req, res) => {
                 console.log("Data get successfully");
                 res.status(200).json(persons);
 
-        }catch (err) {
-        console.log(err);
-        res.status(500).json({ error: 'internal server error ' });
+        } catch (err) {
+                console.log(err);
+                res.status(500).json({ error: 'internal server error ' });
         }
 });
 
 
+//Get person Details by its WorkType   
+router.get("/:workType", async (req, res) => {
 
-router.get("/:workType",async(req,res)=>{
-
-        try{
+        try {
 
                 const workType = req.params.workType;//extract the work type from url parameter 
-                if(workType=='manager' || workType=='waiter' || workType=='chef' ){
-                        const response = await Person.find({work:workType});
+                if (workType == 'manager' || workType == 'waiter' || workType == 'chef') {
+                        const response = await Person.find({ work: workType });
                         console.log("response Fetched ");
                         res.status(200).json(response);
-                } else{
-                        res.status(404).json({error :"Invalid Work type "})
+                } else {
+                        res.status(404).json({ error: "Invalid Work type " })
 
                 }
-        }catch(err){
-                
+        } catch (err) {
+
                 console.log(err);
-                res.status(500).json({error:" Internal Sever Error "})
+                res.status(500).json({ error: " Internal Sever Error " })
         }
 });
 
 
-router.put('/:id',async(req,res)=>{
+//fetch the details of a person by id and then Update 
+router.put('/:id', async (req, res) => {
 
-        try{
-                const personId= req.params.id;
+        try {
+                const personId = req.params.id;
                 const updatedPersonData = req.body;
 
-                const response = await Person.findByIdAndUpdate(personId,updatedPersonData,{
+                const response = await Person.findByIdAndUpdate(personId, updatedPersonData, {
                         new: true, // return the updated document 
-                        runValidators:true
+                        runValidators: true
 
                 })
-                if(!response){
-                        return res.status(404).json({error: " Person not found "})
+                if (!response) {
+                        return res.status(404).json({ error: " Person not found " })
                 }
                 console.log(' data updated ');
-                res.status(200).json(response); 
+                res.status(200).json(response);
 
 
-        }catch(err){
+        } catch (err) {
                 console.log(err);
-                return res.status(500).json({error: " internal server error "})
+                return res.status(500).json({ error: " internal server error " })
         }
 });
 
 
-router.delete('/:id',async(req, res)=>{
+//fetch the details of a person by id and then Delete
+router.delete('/:id', async (req, res) => {
 
-        try{
+        try {
 
                 const personId = req.params.id;
                 const response = await Person.findByIdAndDelete(personId);
 
-                if(!response){
+                if (!response) {
                         return res.status(404).json("boss Person not getting from Db ✖ ")
                 }
                 console.log("deleted succesfully ");
-                res.status(200).json({message:'person deleted Succesfully '});
+                res.status(200).json({ message: 'person deleted Succesfully ' });
 
 
-        }catch(err){
+        } catch (err) {
                 console.log(err);
                 res.status(500).json("internal Sever Error ");
         }
@@ -106,4 +108,4 @@ router.delete('/:id',async(req, res)=>{
 
 
 
-module.exports=router;
+module.exports = router;

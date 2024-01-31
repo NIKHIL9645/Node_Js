@@ -1,8 +1,8 @@
+//mongoose require  for Establish Db connection 
 const { create } = require('lodash');
 const mongoose=require('mongoose')
 
 //define the person schema 
-
 const personSchema =  new mongoose.Schema({
         name:{
                 type: String,
